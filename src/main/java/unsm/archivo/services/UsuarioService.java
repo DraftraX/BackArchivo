@@ -38,9 +38,11 @@ public class UsuarioService
 		nuevousuario.setName(usuario.getName());
 		nuevousuario.setLastname(usuario.getLastname());
 		nuevousuario.setAddress(usuario.getAddress());
+		nuevousuario.setDni(usuario.getDni());
 	    nuevousuario.setPhone(usuario.getPhone());
 		nuevousuario.setPassword(encoded);
 		nuevousuario.setUsername(usuario.getUsername());
+		nuevousuario.setEstado("Activo");
 		
 		Set<Cargo> Cargos = new HashSet<>();
 		

@@ -5,6 +5,7 @@ public class UsuarioRequest {
     String lastname;
     String address;
     String phone;
+    String dni;
     Integer cargoid;
     String username;
     String password;
@@ -64,4 +65,12 @@ public class UsuarioRequest {
     public void setPassword(String password) {
         this.password = password;
     }
+
+	public String getDni() {
+		return dni;
+	}
+
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
 }

@@ -34,10 +34,14 @@ public class Usuario implements UserDetails{
     @Column
     String name;
     String lastname;
+    String dni;
     String address;
     String phone;
     String username;
     String password;
+    String estado;
+    Boolean accountnonlocked = true;
+    Integer intentosfallidos = 0;
     
     @ManyToMany(fetch = FetchType.EAGER, targetEntity = Cargo.class, cascade = CascadeType.MERGE)
 	@JoinTable(name = "Usuario_Cargo", joinColumns = @JoinColumn(name = "id_usuario"), inverseJoinColumns = @JoinColumn(name="id_cargo"))
@@ -111,6 +115,38 @@ public class Usuario implements UserDetails{
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public String getDni() {
+		return dni;
+	}
+
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public Boolean getAccountnonlocked() {
+		return accountnonlocked;
+	}
+
+	public void setAccountnonlocked(Boolean accountnonlocked) {
+		this.accountnonlocked = accountnonlocked;
+	}
+
+	public Integer getIntentosfallidos() {
+		return intentosfallidos;
+	}
+
+	public void setIntentosfallidos(Integer intentosfallidos) {
+		this.intentosfallidos = intentosfallidos;
 	}
 
 	@Override

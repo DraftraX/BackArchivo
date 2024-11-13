@@ -27,7 +27,7 @@ public class UsuariosController
     {
         return service.verusuarios();
     }
-
+    
     @GetMapping("/verusuario/{id}")
     public UsuarioDTO verusuario(@PathVariable Integer id)
     {

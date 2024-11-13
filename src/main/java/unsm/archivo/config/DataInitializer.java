@@ -31,6 +31,8 @@ public class DataInitializer
     		Cargo cargo = rolRepository.findByName("ADMINISTRADOR").orElseThrow(() -> new RuntimeException("Cargo no encontrado"));
     		cargos.add(cargo);
             usuario.setUsername("eduysting@gmail.com");
+            usuario.setEstado("Activo");
+            usuario.setDni("12345678");
             usuario.setName("Eduardo Abel");
             usuario.setLastname("Padilla Coral");
             usuario.setAddress(" Jirón José Carlos Mariategui n° 123");
