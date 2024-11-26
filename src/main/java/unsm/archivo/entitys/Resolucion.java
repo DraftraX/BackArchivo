@@ -7,7 +7,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 
 @Entity
@@ -22,15 +21,22 @@ public class Resolucion
 	LocalDate fecha;
 	Integer duracion;
 	LocalDate vencimiento;
+	String link;
 	
 	@ManyToOne (fetch = FetchType.LAZY)
 	@JoinColumn (name= "idtipocriterio")
 	Tipocriterio idtipocriterio;
-
-	@Lob
-	@Column(name = "pdf", columnDefinition = "LONGBLOB")
-	byte[] pdf;
 	
+	@ManyToOne (fetch = FetchType.LAZY)
+	@JoinColumn (name= "idusuario")
+	Usuario idusuario;
+	
+	public String getLink() {
+		return link;
+	}
+	public void setLink(String link) {
+		this.link = link;
+	}
 	public String getNrodoc() {
 		return nrodoc;
 	}
@@ -73,10 +79,10 @@ public class Resolucion
 	public void setIdtipocriterio(Tipocriterio idtipocriterio) {
 		this.idtipocriterio = idtipocriterio;
 	}
-	public byte[] getPdf() {
-		return pdf;
+	public Usuario getIdusuario() {
+		return idusuario;
 	}
-	public void setPdf(byte[] pdf) {
-		this.pdf = pdf;
+	public void setIdusuario(Usuario idusuario) {
+		this.idusuario = idusuario;
 	}
 }

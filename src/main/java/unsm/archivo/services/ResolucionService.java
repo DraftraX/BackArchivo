@@ -1,6 +1,5 @@
 package unsm.archivo.services;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -11,13 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import unsm.archivo.DTO.ResolucionDTO;
 import unsm.archivo.entitys.Resolucion;
 import unsm.archivo.entitys.Tipocriterio;
+import unsm.archivo.entitys.Usuario;
 import unsm.archivo.repository.ResolucionRepo;
 import unsm.archivo.repository.TipocriterioRepo;
+import unsm.archivo.repository.UsuarioRepo;
 import unsm.archivo.request.ResolucionRequest;
 
 @Service
@@ -28,12 +28,20 @@ public class ResolucionService
 
     @Autowired
     TipocriterioRepo criterio;
+    
+    @Autowired
+    UsuarioRepo usuario;
+    
+    @Autowired
+    private EncryptionService encryption;
 
-    public void nuevoDocumento(ResolucionRequest documentosRequest) throws IOException {
+    public void nuevoDocumento(ResolucionRequest documentosRequest) throws Exception 
+    {
         Resolucion doc = new Resolucion();
         doc.setNrodoc(documentosRequest.getNrodoc());
         doc.setTitulo(documentosRequest.getTitulo());
         doc.setEstado(documentosRequest.getEstado());
+        doc.setLink(encryption.encrypt(documentosRequest.getLink()));
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -47,49 +55,62 @@ public class ResolucionService
                 LocalDate fechaVencimiento = fecha.plus(duracion, ChronoUnit.YEARS);
                 doc.setVencimiento(fechaVencimiento);
             }
-        } else {
+        } 
+        else 
+        {
             throw new IllegalArgumentException("Fecha no puede ser nula");
         }
 
         Tipocriterio tipocriterio = criterio.findById(documentosRequest.getIdtipocriterio())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid Criterio Id:" + documentosRequest.getIdtipocriterio()));
         doc.setIdtipocriterio(tipocriterio);
-
-        MultipartFile pdfFile = documentosRequest.getPdf();
-        if (pdfFile != null && !pdfFile.isEmpty()) {
-            doc.setPdf(pdfFile.getBytes());
-        }
+        
+        Usuario usuer = usuario.findByUsername(documentosRequest.getUsuario())
+        		.orElseThrow(()-> new IllegalArgumentException("Invalid Criterio Id:" + documentosRequest.getUsuario()));
+        doc.setIdusuario(usuer);
 
         documentorepo.save(doc);
     }
     
-    public Page<ResolucionDTO> verDocumentos(Pageable pageable) {
-    Page<Resolucion> documentos = documentorepo.findAll(pageable);
-    return documentos.map(documento -> {
-        ResolucionDTO documentoDTO = new ResolucionDTO();
-        documentoDTO.setNrodoc(documento.getNrodoc());
-        documentoDTO.setTitulo(documento.getTitulo());
-        documentoDTO.setEstado(documento.getEstado());
-        documentoDTO.setFecha(documento.getFecha().toString());
+    public Page<ResolucionDTO> verDocumentos(Pageable pageable)
+    {
+	    Page<Resolucion> documentos = documentorepo.findAll(pageable);
+	    return documentos.map(documento -> 
+	    {
+	        ResolucionDTO documentoDTO = new ResolucionDTO();
+	        documentoDTO.setNrodoc(documento.getNrodoc());
+	        documentoDTO.setTitulo(documento.getTitulo());
+	        documentoDTO.setEstado(documento.getEstado());
+	        documentoDTO.setFecha(documento.getFecha().toString());
+	        try
+	        {
+				documentoDTO.setLink(encryption.decrypt(documento.getLink()));
+			} 
+	        catch (Exception e) 
+	        {
+				e.printStackTrace();
+			}
+	
+	        if (documento.getDuracion() != null) 
+	        {
+	            documentoDTO.setDuracion(documento.getDuracion());
+	        } else {
+	            documentoDTO.setDuracion(0);
+	        }
+	
+	        if (documento.getVencimiento() != null) {
+	            documentoDTO.setVencimiento(documento.getVencimiento().toString());
+	        } else {
+	            documentoDTO.setVencimiento("Permanente");
+	        }
+	
+	        documentoDTO.setTipocriterio(documento.getIdtipocriterio().getCriteryname());
+	        return documentoDTO;
+    	});
+    }
 
-        if (documento.getDuracion() != null) {
-            documentoDTO.setDuracion(documento.getDuracion());
-        } else {
-            documentoDTO.setDuracion(0);
-        }
-
-        if (documento.getVencimiento() != null) {
-            documentoDTO.setVencimiento(documento.getVencimiento().toString());
-        } else {
-            documentoDTO.setVencimiento("Permanente");
-        }
-
-        documentoDTO.setTipocriterio(documento.getIdtipocriterio().getCriteryname());
-        return documentoDTO;
-    });
-}
-
-    public ResolucionDTO verUnDocumento(String doc) {
+    public ResolucionDTO verUnDocumento(String doc) 
+    {
     	Resolucion documento = documentorepo.findById(doc)
                 .orElseThrow(() -> new RuntimeException("No se encontro el documento"));
 
@@ -99,6 +120,15 @@ public class ResolucionService
         documentoDTO.setEstado(documento.getEstado());
         documentoDTO.setFecha(documento.getFecha().toString());
         
+        try
+        {
+			documentoDTO.setLink(encryption.decrypt(documento.getLink()));
+		} 
+        catch (Exception e) 
+        {
+			e.printStackTrace();
+		}
+        
         if (documento.getDuracion() != null) {
             documentoDTO.setDuracion(documento.getDuracion());
         } else {
@@ -114,12 +144,6 @@ public class ResolucionService
         documentoDTO.setTipocriterio(documento.getIdtipocriterio().getCriteryname());
 
         return documentoDTO;
-    }
-
-    public Resolucion verDocumentoPdf(String id) {
-    	Resolucion documento = documentorepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("No se encontro el documento"));
-        return documento;
     }
 
     public List<ResolucionDTO> verDocumentosporCriterio(Integer idcriterio) {
@@ -135,6 +159,15 @@ public class ResolucionService
             documentoDTO.setTitulo(documento.getTitulo());
             documentoDTO.setEstado(documento.getEstado());
             documentoDTO.setFecha(documento.getFecha().toString());
+            
+            try
+	        {
+				documentoDTO.setLink(encryption.decrypt(documento.getLink()));
+			} 
+	        catch (Exception e) 
+	        {
+				e.printStackTrace();
+			}
             
             if (documento.getDuracion() != null) {
                 documentoDTO.setDuracion(documento.getDuracion());
@@ -181,6 +214,15 @@ public class ResolucionService
                 documentoDTO.setTitulo(documento.getTitulo());
                 documentoDTO.setEstado(documento.getEstado());
                 documentoDTO.setFecha(documento.getFecha().toString());
+                
+                try
+    	        {
+    				documentoDTO.setLink(encryption.decrypt(documento.getLink()));
+    			} 
+    	        catch (Exception e) 
+    	        {
+    				e.printStackTrace();
+    			}
                 
                 if (documento.getDuracion() != null) {
                     documentoDTO.setDuracion(documento.getDuracion());

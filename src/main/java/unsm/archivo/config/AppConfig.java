@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import unsm.archivo.repository.UsuarioRepo;
+import unsm.archivo.services.EncryptionService;
 
 @Configuration
 
@@ -42,6 +43,12 @@ public class AppConfig {
 	PasswordEncoder passwordEncoder() {
 		
 		return new BCryptPasswordEncoder();
+	}
+	
+	@Bean
+	EncryptionService encryptionService() 
+	{
+	    return new EncryptionService("ClaveSecretaMuySegura123456");
 	}
 	
 	@Bean

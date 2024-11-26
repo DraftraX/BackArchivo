@@ -22,14 +22,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import unsm.archivo.DTO.GradoTituloDTO;
 import unsm.archivo.entitys.GradoTitulo;
 import unsm.archivo.request.GradoTituloRequest;
-import unsm.archivo.services.GradoTituloService;
+import unsm.archivo.services.PregradoService;
 
 @RestController
 @RequestMapping("/gradotitulos")
-public class GradoTituloController 
+public class PregradoController 
 {
     @Autowired
-    GradoTituloService service;
+    PregradoService service;
 
     @GetMapping("/vergradotitulo")
     public Page<GradoTituloDTO> verGradoTitulos(

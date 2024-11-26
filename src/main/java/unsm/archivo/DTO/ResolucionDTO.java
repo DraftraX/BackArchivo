@@ -9,7 +9,14 @@ public class ResolucionDTO
 	Integer duracion;
 	String vencimiento;
 	String tipocriterio;
+	String link;
 	
+	public String getLink() {
+		return link;
+	}
+	public void setLink(String link) {
+		this.link = link;
+	}
 	public String getNrodoc() {
 		return nrodoc;
 	}

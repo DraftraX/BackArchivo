@@ -46,9 +46,9 @@ public class WebSecurityConfig
 							authRequest.anyRequest().authenticated();
 							})
 					.formLogin(login -> login	
-						.loginPage("http://localhost:5173/login")
-						.defaultSuccessUrl("http://localhost:5173/paginaprincipal")
-						.failureUrl("http://localhost:5173/login?error=true")
+						.loginPage("http://localhost:3000/login")
+						.defaultSuccessUrl("http://localhost:3000/paginaprincipal")
+						.failureUrl("http://localhost:3000/login?error=true")
 						.permitAll()
 						)
 					.sessionManagement(sessionManager -> sessionManager

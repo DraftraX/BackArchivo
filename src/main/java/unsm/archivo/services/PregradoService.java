@@ -20,7 +20,7 @@ import unsm.archivo.repository.ResolucionRepo;
 import unsm.archivo.request.GradoTituloRequest;
 
 @Service
-public class GradoTituloService {
+public class PregradoService {
     
     @Autowired
     GradoTituloRepo gradorepo;
