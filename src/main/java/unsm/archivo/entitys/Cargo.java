@@ -43,6 +43,4 @@ public class Cargo implements GrantedAuthority{
 		
 		return "ROLE_" + name;
 	}
-
-	
 }
