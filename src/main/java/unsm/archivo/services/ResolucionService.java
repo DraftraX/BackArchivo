@@ -3,8 +3,6 @@ package unsm.archivo.services;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,10 +11,8 @@ import org.springframework.stereotype.Service;
 
 import unsm.archivo.DTO.ResolucionDTO;
 import unsm.archivo.entitys.Resolucion;
-import unsm.archivo.entitys.Tipocriterio;
 import unsm.archivo.entitys.Usuario;
 import unsm.archivo.repository.ResolucionRepo;
-import unsm.archivo.repository.TipocriterioRepo;
 import unsm.archivo.repository.UsuarioRepo;
 import unsm.archivo.request.ResolucionRequest;
 
@@ -25,9 +21,6 @@ public class ResolucionService
 {
     @Autowired
     ResolucionRepo documentorepo;
-
-    @Autowired
-    TipocriterioRepo criterio;
     
     @Autowired
     UsuarioRepo usuario;
@@ -60,10 +53,6 @@ public class ResolucionService
         {
             throw new IllegalArgumentException("Fecha no puede ser nula");
         }
-
-        Tipocriterio tipocriterio = criterio.findById(documentosRequest.getIdtipocriterio())
-                .orElseThrow(() -> new IllegalArgumentException("Invalid Criterio Id:" + documentosRequest.getIdtipocriterio()));
-        doc.setIdtipocriterio(tipocriterio);
         
         Usuario usuer = usuario.findByUsername(documentosRequest.getUsuario())
         		.orElseThrow(()-> new IllegalArgumentException("Invalid Criterio Id:" + documentosRequest.getUsuario()));
@@ -104,7 +93,6 @@ public class ResolucionService
 	            documentoDTO.setVencimiento("Permanente");
 	        }
 	
-	        documentoDTO.setTipocriterio(documento.getIdtipocriterio().getCriteryname());
 	        return documentoDTO;
     	});
     }
@@ -141,105 +129,6 @@ public class ResolucionService
             documentoDTO.setVencimiento("Permanente");
         }
         
-        documentoDTO.setTipocriterio(documento.getIdtipocriterio().getCriteryname());
-
         return documentoDTO;
-    }
-
-    public List<ResolucionDTO> verDocumentosporCriterio(Integer idcriterio) {
-        Tipocriterio tipocriterio = criterio.findById(idcriterio)
-                .orElseThrow(() -> new RuntimeException("No se encontro el criterio"));
-
-        List<Resolucion> documentos = documentorepo.findByIdtipocriterio(tipocriterio);
-        List<ResolucionDTO> documentosdto = new ArrayList<>();
-
-        for (Resolucion documento : documentos) {
-        	ResolucionDTO documentoDTO = new ResolucionDTO();
-            documentoDTO.setNrodoc(documento.getNrodoc());
-            documentoDTO.setTitulo(documento.getTitulo());
-            documentoDTO.setEstado(documento.getEstado());
-            documentoDTO.setFecha(documento.getFecha().toString());
-            
-            try
-	        {
-				documentoDTO.setLink(encryption.decrypt(documento.getLink()));
-			} 
-	        catch (Exception e) 
-	        {
-				e.printStackTrace();
-			}
-            
-            if (documento.getDuracion() != null) {
-                documentoDTO.setDuracion(documento.getDuracion());
-            } else {
-                documentoDTO.setDuracion(0);
-            }
-            
-            if (documento.getVencimiento() != null) {
-                documentoDTO.setVencimiento(documento.getVencimiento().toString());
-            } else {
-                documentoDTO.setVencimiento("Permanente");
-            }
-            
-            documentoDTO.setTipocriterio(documento.getIdtipocriterio().getCriteryname());
-            documentosdto.add(documentoDTO);
-        }
-        return documentosdto;
-    }
-
-    public List<ResolucionDTO> verDocumentosporCriterioMayor(Integer idcriterio) {
-        Tipocriterio tipocriterio = criterio.findById(idcriterio)
-                .orElseThrow(() -> new RuntimeException("No se encontro el criterio"));
-        
-        List<Tipocriterio> subcriterios = criterio.findBySubcriteryid(tipocriterio);
-        List<Tipocriterio> newSubcriterios = new ArrayList<>();
-
-        for (Tipocriterio subcriterio : subcriterios) 
-        {
-            List<Tipocriterio> subsubcriterios = criterio.findBySubcriteryid(subcriterio);
-            newSubcriterios.addAll(subsubcriterios);
-        }
-
-        subcriterios.addAll(newSubcriterios);
-        
-        List<Resolucion> documentos = new ArrayList<>();
-        List<ResolucionDTO> documentosdto = new ArrayList<>();
-
-        for (Tipocriterio subcriterio : subcriterios) {
-            documentos = documentorepo.findByIdtipocriterio(subcriterio);
-
-            for (Resolucion documento : documentos) {
-            	ResolucionDTO documentoDTO = new ResolucionDTO();
-                documentoDTO.setNrodoc(documento.getNrodoc());
-                documentoDTO.setTitulo(documento.getTitulo());
-                documentoDTO.setEstado(documento.getEstado());
-                documentoDTO.setFecha(documento.getFecha().toString());
-                
-                try
-    	        {
-    				documentoDTO.setLink(encryption.decrypt(documento.getLink()));
-    			} 
-    	        catch (Exception e) 
-    	        {
-    				e.printStackTrace();
-    			}
-                
-                if (documento.getDuracion() != null) {
-                    documentoDTO.setDuracion(documento.getDuracion());
-                } else {
-                    documentoDTO.setDuracion(0);
-                }
-                
-                if (documento.getVencimiento() != null) {
-                    documentoDTO.setVencimiento(documento.getVencimiento().toString());
-                } else {
-                    documentoDTO.setVencimiento("Permanente");
-                }
-                
-                documentoDTO.setTipocriterio(documento.getIdtipocriterio().getCriteryname());
-                documentosdto.add(documentoDTO);
-            }
-        }
-        return documentosdto;
-    }
+    }   
 }

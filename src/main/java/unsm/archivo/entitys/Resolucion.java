@@ -24,10 +24,6 @@ public class Resolucion
 	String link;
 	
 	@ManyToOne (fetch = FetchType.LAZY)
-	@JoinColumn (name= "idtipocriterio")
-	Tipocriterio idtipocriterio;
-	
-	@ManyToOne (fetch = FetchType.LAZY)
 	@JoinColumn (name= "idusuario")
 	Usuario idusuario;
 	
@@ -72,12 +68,6 @@ public class Resolucion
 	}
 	public void setVencimiento(LocalDate vencimiento) {
 		this.vencimiento = vencimiento;
-	}
-	public Tipocriterio getIdtipocriterio() {
-		return idtipocriterio;
-	}
-	public void setIdtipocriterio(Tipocriterio idtipocriterio) {
-		this.idtipocriterio = idtipocriterio;
 	}
 	public Usuario getIdusuario() {
 		return idusuario;

@@ -8,7 +8,6 @@ public class ResolucionRequest
 	String fecha;
 	Integer duracion;
 	String tipoResolucion;
-	Integer idtipocriterio;
 	String link;
 	String usuario;
 	
@@ -47,12 +46,6 @@ public class ResolucionRequest
 	}
 	public void setTipoResolucion(String tipoResolucion) {
 		this.tipoResolucion = tipoResolucion;
-	}
-	public Integer getIdtipocriterio() {
-		return idtipocriterio;
-	}
-	public void setIdtipocriterio(Integer idtipocriterio) {
-		this.idtipocriterio = idtipocriterio;
 	}
 	public String getLink() {
 		return link;

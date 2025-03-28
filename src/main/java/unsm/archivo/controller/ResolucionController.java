@@ -1,7 +1,5 @@
 package unsm.archivo.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -42,18 +40,6 @@ public class ResolucionController
         return service.verUnDocumento(id);
     }
     
-    @GetMapping("/verresolucion/criterio/{id}")
-    public List<ResolucionDTO> verResolucionesPorCriterio(@PathVariable Integer id)
-    {
-        return service.verDocumentosporCriterio(id);
-    }
-    
-    @GetMapping("/verresolucion/criteriomayor/{id}")
-    public List<ResolucionDTO> verResolucionesPorCriterioMayor(@PathVariable Integer id)
-    {
-        return service.verDocumentosporCriterioMayor(id);
-    }
-
     @PostMapping("/nuevaresolucion")
     public void nuevaResolucion(@ModelAttribute ResolucionRequest request) throws Exception
     {
