@@ -41,7 +41,7 @@ public class WebSecurityConfig
 										"/change-password/**"
 									).permitAll();
 							authRequest.requestMatchers
-							("/resolucion/**", "/gradotitulos/**", "/tipocriterio/**","/usuario/**")
+							("/resolucion/**", "/gradotitulos/**", "/usuario/**", "/visita/**")
 							.hasAuthority("ADMINISTRADOR");
 							authRequest.anyRequest().authenticated();
 							})
