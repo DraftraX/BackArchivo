@@ -84,6 +84,8 @@ public class AuthRestController
             // Parsear la respuesta JSON
             ObjectMapper mapper = new ObjectMapper();
             JsonNode rootNode = mapper.readTree(response.toString());
+            
+            System.out.println("Respuesta reCAPTCHA: " + rootNode.toPrettyString());
 
             // Obtener el valor del campo "success"
             boolean success = rootNode.path("success").asBoolean();
