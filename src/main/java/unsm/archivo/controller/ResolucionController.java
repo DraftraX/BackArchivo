@@ -23,7 +23,7 @@ public class ResolucionController
     @Autowired
     ResolucionService service;
 
-    @GetMapping("/verresolucion/")
+    @GetMapping("/verresolucion")
     public Page<ResolucionDTO> verDocumentos
     		(
     			@RequestParam(defaultValue = "0") int page,
