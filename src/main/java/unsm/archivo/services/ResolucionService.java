@@ -3,6 +3,8 @@ package unsm.archivo.services;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -95,6 +97,22 @@ public class ResolucionService
 	
 	        return documentoDTO;
     	});
+    }
+
+    public List<ResolucionDTO> verTodosDocumentos()
+    {
+	    List<Resolucion> documentos = documentorepo.findAll();
+        List<ResolucionDTO> dtos = new ArrayList<>();
+	    for (Resolucion documento : documentos) 
+	    {
+	        ResolucionDTO documentoDTO = new ResolucionDTO();
+	        documentoDTO.setNrodoc(documento.getNrodoc());
+	        documentoDTO.setTitulo(documento.getTitulo());
+	        documentoDTO.setFecha(documento.getFecha().toString());
+	        dtos.add(documentoDTO);
+	        
+    	}
+        return dtos;
     }
 
     public ResolucionDTO verUnDocumento(String doc) 

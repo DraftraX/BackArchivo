@@ -1,5 +1,7 @@
 package unsm.archivo.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -32,6 +34,12 @@ public class ResolucionController
     {
     	Pageable pageable = PageRequest.of(page, size);
     	return service.verDocumentos(pageable);
+    }
+
+    @GetMapping("/verallresolucion")
+    public List<ResolucionDTO> verTodosDocumentos() 
+    {
+    	return service.verTodosDocumentos();
     }
 
     @GetMapping("/verresolucion/{id}")
