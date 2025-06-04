@@ -19,11 +19,11 @@ import java.util.Arrays;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
+
 	private final JwtAuthenticationFilter jwtAuthenticationFilter;
 	private final AuthenticationProvider authProvider;
 
 	public WebSecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter, AuthenticationProvider authProvider) {
-		super();
 		this.jwtAuthenticationFilter = jwtAuthenticationFilter;
 		this.authProvider = authProvider;
 	}
@@ -38,14 +38,18 @@ public class WebSecurityConfig {
 							"/auth/**",
 							"/change-password/**",
 							"/usuario/nuevousuario").permitAll();
-					authRequest.requestMatchers("/resolucion/**", "/gradotitulos/**", "/usuario/**", "/visita/**")
+					authRequest.requestMatchers(
+							"/resolucion/**",
+							"/gradotitulos/**",
+							"/usuario/**",
+							"/visita/**")
 							.hasAnyAuthority("ADMINISTRADOR", "JEFE ARCHIVO", "SECRETARIA", "USUARIO");
 					authRequest.anyRequest().authenticated();
 				})
 				.formLogin(login -> login
-						.loginPage("http://localhost:3000/login")
-						.defaultSuccessUrl("http://localhost:3000/paginaprincipal")
-						.failureUrl("http://localhost:3000/login?error=true")
+						.loginPage("https://archivo-frontend.onrender.com/login")
+						.defaultSuccessUrl("https://archivo-frontend.onrender.com/paginaprincipal")
+						.failureUrl("https://archivo-frontend.onrender.com/login?error=true")
 						.permitAll())
 				.sessionManagement(sessionManager -> sessionManager
 						.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
@@ -57,8 +61,7 @@ public class WebSecurityConfig {
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
-		configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173", "http://localhost:3000/",
-				"https://unidadarchivocentral.onrender.com/"));
+		configuration.setAllowedOrigins(Arrays.asList("https://archivo-frontend.onrender.com")); // ✅ SOLO esta
 		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 		configuration.setAllowedHeaders(Arrays.asList("*"));
 		configuration.setExposedHeaders(Arrays.asList("Authorization"));
