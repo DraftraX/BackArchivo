@@ -61,8 +61,7 @@ public class WebSecurityConfig {
 		CorsConfiguration configuration = new CorsConfiguration();
 
 		// Frontend permitido
-		configuration.setAllowedOriginPatterns(Collections.singletonList("https://archivo-frontend.onrender.com"));
-
+		configuration.setAllowedOrigins(Collections.singletonList("https://archivo-frontend.onrender.com"));
 		// Métodos permitidos
 		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 
