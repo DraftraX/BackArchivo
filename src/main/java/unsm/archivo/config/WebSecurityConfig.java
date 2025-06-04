@@ -61,11 +61,12 @@ public class WebSecurityConfig {
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
-		configuration.setAllowedOrigins(Arrays.asList("https://archivo-frontend.onrender.com")); // ✅ SOLO esta
+		configuration.setAllowedOrigins(Arrays.asList("https://archivo-frontend.onrender.com"));
 		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-		configuration.setAllowedHeaders(Arrays.asList("*"));
+		configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "X-Requested-With"));
 		configuration.setExposedHeaders(Arrays.asList("Authorization"));
 		configuration.setAllowCredentials(true);
+		configuration.setMaxAge(3600L); // 1 hora de caché para preflight
 
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration);
