@@ -60,21 +60,11 @@ public class WebSecurityConfig {
 	CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
 
-		// Frontend permitido
 		configuration.setAllowedOrigins(Collections.singletonList("https://archivo-frontend.onrender.com"));
-		// Métodos permitidos
 		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-
-		// Headers permitidos
 		configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "X-Requested-With"));
-
-		// Headers expuestos al cliente
 		configuration.setExposedHeaders(Collections.singletonList("Authorization"));
-
-		// Permitir credenciales
 		configuration.setAllowCredentials(true);
-
-		// Tiempo de caché del preflight
 		configuration.setMaxAge(3600L);
 
 		// Registrar configuración para todos los endpoints
