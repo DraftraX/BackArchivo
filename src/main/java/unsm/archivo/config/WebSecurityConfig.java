@@ -2,6 +2,7 @@ package unsm.archivo.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -15,6 +16,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import unsm.archivo.jwt.JwtAuthenticationFilter;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity
@@ -30,51 +32,56 @@ public class WebSecurityConfig {
 
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		return http
+		http
 				.csrf(csrf -> csrf.disable())
 				.cors(cors -> cors.configurationSource(corsConfigurationSource()))
-				.authorizeHttpRequests(authRequest -> {
-					// Permitir solicitudes OPTIONS (preflight)
-					authRequest.requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll();
-
-					authRequest.requestMatchers(
-							"/auth/**",
-							"/change-password/**",
-							"/usuario/nuevousuario").permitAll();
-
-					authRequest.requestMatchers(
-							"/resolucion/**",
-							"/gradotitulos/**",
-							"/usuario/**",
-							"/visita/**")
-							.hasAnyAuthority("ADMINISTRADOR", "JEFE ARCHIVO", "SECRETARIA", "USUARIO");
-
-					authRequest.anyRequest().authenticated();
-				})
-				.formLogin(login -> login
-						.loginPage("https://archivo-frontend.onrender.com/login")
-						.defaultSuccessUrl("https://archivo-frontend.onrender.com/paginaprincipal")
-						.failureUrl("https://archivo-frontend.onrender.com/login?error=true")
-						.permitAll())
-				.sessionManagement(sessionManager -> sessionManager
-						.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
+				.authorizeHttpRequests(authRequest -> authRequest
+						.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // Preflight CORS
+						.requestMatchers(
+								"/auth/**",
+								"/change-password/**",
+								"/usuario/nuevousuario")
+						.permitAll()
+						.requestMatchers(
+								"/resolucion/**",
+								"/gradotitulos/**",
+								"/usuario/**",
+								"/visita/**")
+						.hasAnyAuthority("ADMINISTRADOR", "JEFE ARCHIVO", "SECRETARIA", "USUARIO")
+						.anyRequest().authenticated())
+				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
 				.authenticationProvider(authProvider)
-				.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-				.build();
+				.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
+		return http.build();
 	}
 
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
-		configuration.setAllowedOrigins(Arrays.asList("https://archivo-frontend.onrender.com"));
+
+		// Frontend permitido
+		configuration.setAllowedOriginPatterns(Collections.singletonList("https://archivo-frontend.onrender.com"));
+
+		// Métodos permitidos
 		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+
+		// Headers permitidos
 		configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "X-Requested-With"));
-		configuration.setExposedHeaders(Arrays.asList("Authorization"));
+
+		// Headers expuestos al cliente
+		configuration.setExposedHeaders(Collections.singletonList("Authorization"));
+
+		// Permitir credenciales
 		configuration.setAllowCredentials(true);
+
+		// Tiempo de caché del preflight
 		configuration.setMaxAge(3600L);
 
+		// Registrar configuración para todos los endpoints
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration);
+
 		return source;
 	}
 }
