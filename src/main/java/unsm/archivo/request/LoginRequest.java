@@ -10,22 +10,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LoginRequest {
-	String username;
-	String password;
-	String recaptchaResponse;
-	
-	public String getRecaptchaResponse() 
-	{
-		return recaptchaResponse;
-	}
-	
-	public String getUsername() 
-	{
-		return username;
-	}
-	
-	public String getPassword() 
-	{
-		return password;
-	}
+	private String username;
+	private String password;
+	private String recaptchaResponse;
+
 }
