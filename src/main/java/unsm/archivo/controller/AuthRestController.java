@@ -29,7 +29,7 @@ public class AuthRestController {
     private final AuthService authService;
     private final UsuarioRepo usuarioRepository;
 
-    private static final String SECRET_KEY = "6LdpRVUrAAAAAMXUbqkpGhxIchH5GeKh4EU8tX_f";
+    private static final String SECRET_KEY = "6LdpRVUrAAAAABrYHMs4u1x8YxF3m8kf2h4gUDpc";
 
     public AuthRestController(AuthService authService, UsuarioRepo usuarioRepo) {
         super();
