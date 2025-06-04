@@ -17,32 +17,27 @@ import unsm.archivo.services.UsuarioService;
 
 @RestController
 @RequestMapping("/usuario")
-public class UsuariosController
-{
+public class UsuariosController {
     @Autowired
     private UsuarioService service;
-    
+
     @GetMapping("/usuarios")
-    public List<UsuarioDTO> verusuarios()
-    {
+    public List<UsuarioDTO> verusuarios() {
         return service.verusuarios();
     }
-    
+
     @GetMapping("/verusuario/{id}")
-    public UsuarioDTO verusuario(@PathVariable Integer id)
-    {
-        return service.verusuario(id);        
+    public UsuarioDTO verusuario(@PathVariable Integer id) {
+        return service.verusuario(id);
     }
-    
+
     @GetMapping("/verusuarioporusername/{username}")
-    public UsuarioDTO findByUsername(@PathVariable String username)
-    {
-        return service.findByUsername(username);       
+    public UsuarioDTO findByUsername(@PathVariable String username) {
+        return service.findByUsername(username);
     }
 
     @PostMapping("/nuevousuario")
-    public void nuevousuario(@RequestBody UsuarioRequest request) throws IOException
-    {
+    public void nuevousuario(@RequestBody UsuarioRequest request) throws IOException {
         service.nuevousuario(request);
     }
 }

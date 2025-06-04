@@ -25,24 +25,22 @@ import unsm.archivo.repository.UsuarioRepo;
 
 @RestController
 @RequestMapping("/auth")
-public class AuthRestController 
-{
-	private final AuthService authService;
-	private final UsuarioRepo usuarioRepository;
-	
+public class AuthRestController {
+    private final AuthService authService;
+    private final UsuarioRepo usuarioRepository;
+
     private static final String SECRET_KEY = "6Lcs1U0qAAAAAONJFeRsaRZDpDborc1O3pk_Mezj";
-	
-	public AuthRestController(AuthService authService, UsuarioRepo usuarioRepo) 
-	{
-		super();
-		this.authService = authService;
-		this.usuarioRepository = usuarioRepo;
-	}
-	
-	@PostMapping("/login")
+
+    public AuthRestController(AuthService authService, UsuarioRepo usuarioRepo) {
+        super();
+        this.authService = authService;
+        this.usuarioRepository = usuarioRepo;
+    }
+
+    @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request) {
         boolean isCaptchaValid = verifyRecaptchaToken(request.getRecaptchaResponse());
-        
+
         if (!isCaptchaValid) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new AuthResponse("Invalid reCAPTCHA"));
         }
@@ -56,7 +54,8 @@ public class AuthRestController
             request.getSession().invalidate();
             return ResponseEntity.ok().body("{\"message\": \"Sesión cerrada con éxito.\"}");
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al cerrar la sesión: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al cerrar la sesión: " + e.getMessage());
         }
     }
 
@@ -84,7 +83,7 @@ public class AuthRestController
             // Parsear la respuesta JSON
             ObjectMapper mapper = new ObjectMapper();
             JsonNode rootNode = mapper.readTree(response.toString());
-            
+
             System.out.println("Respuesta reCAPTCHA: " + rootNode.toPrettyString());
 
             // Obtener el valor del campo "success"
@@ -96,8 +95,8 @@ public class AuthRestController
             return false;
         }
     }
-	
-	public UsuarioRepo getUsuarioRepository() {
-		return usuarioRepository;
-	}
+
+    public UsuarioRepo getUsuarioRepository() {
+        return usuarioRepository;
+    }
 }

@@ -18,21 +18,20 @@ import unsm.archivo.services.UsuarioService;
 
 @RestController
 @RequestMapping("/change-password")
-public class RestablecerController 
-{
-	@Autowired
+public class RestablecerController {
+    @Autowired
     EmailService emailService;
-	
-	@Autowired
+
+    @Autowired
     private UsuarioService userService;
 
     @Value("${spring.mail.username}")
     private String mailFrom;
-  
+
     @PostMapping("/enviarcorreo")
-    public ResponseEntity<String> sendEmail(@RequestBody EmailRequest request ){
-    	request.setMailFrom(mailFrom);
-    	request.setMailTo(request.getMailTo());
+    public ResponseEntity<String> sendEmail(@RequestBody EmailRequest request) {
+        request.setMailFrom(mailFrom);
+        request.setMailTo(request.getMailTo());
         request.setSubject("Cambio de Contraseña");
         UUID uuid = UUID.randomUUID();
         String codigo = uuid.toString();
@@ -40,23 +39,18 @@ public class RestablecerController
         emailService.sendEmail(request);
         return new ResponseEntity<String>("Correo con plantilla enviado", HttpStatus.OK);
     }
-    
+
     @PostMapping("/newpassword")
-    public ResponseEntity<String> changePassword(@RequestBody LoginRequest request)
-    {
-    	System.out.println(request.getUsername());
-    	System.out.println(request.getPassword());
+    public ResponseEntity<String> changePassword(@RequestBody LoginRequest request) {
+        System.out.println(request.getUsername());
+        System.out.println(request.getPassword());
 
         boolean isChanged = userService.cambiarContrasena(request.getUsername(), request.getPassword());
-        
-        if (isChanged) 
-        {
+
+        if (isChanged) {
             return new ResponseEntity<>("Contraseña cambiada exitosamente.", HttpStatus.OK);
-        }
-        else
-        {
+        } else {
             return new ResponseEntity<>("Error al cambiar la contraseña.", HttpStatus.BAD_REQUEST);
         }
     }
 }
-

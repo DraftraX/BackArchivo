@@ -18,58 +18,54 @@ import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig
-{
+public class WebSecurityConfig {
 	private final JwtAuthenticationFilter jwtAuthenticationFilter;
 	private final AuthenticationProvider authProvider;
-	
+
 	public WebSecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter, AuthenticationProvider authProvider) {
 		super();
 		this.jwtAuthenticationFilter = jwtAuthenticationFilter;
 		this.authProvider = authProvider;
 	}
-	
+
 	@Bean
-	SecurityFilterChain filterChain(HttpSecurity http) throws Exception
-	{
-			return http
-					.csrf(csrf -> csrf.disable())
-					.cors(cors -> cors.configurationSource(corsConfigurationSource()))
-					.authorizeHttpRequests(authRequest -> {
-							authRequest.requestMatchers(
-										"/auth/**",
-										"/change-password/**"
-									).permitAll();
-							authRequest.requestMatchers
-							("/resolucion/**", "/gradotitulos/**", "/usuario/**", "/visita/**")
-							.hasAuthority("ADMINISTRADOR");
-							authRequest.anyRequest().authenticated();
-							})
-					.formLogin(login -> login	
+	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+		return http
+				.csrf(csrf -> csrf.disable())
+				.cors(cors -> cors.configurationSource(corsConfigurationSource()))
+				.authorizeHttpRequests(authRequest -> {
+					authRequest.requestMatchers(
+							"/auth/**",
+							"/change-password/**",
+							"/usuario/nuevousuario").permitAll();
+					authRequest.requestMatchers("/resolucion/**", "/gradotitulos/**", "/usuario/**", "/visita/**")
+							.hasAnyAuthority("ADMINISTRADOR", "JEFE ARCHIVO", "SECRETARIA", "USUARIO");
+					authRequest.anyRequest().authenticated();
+				})
+				.formLogin(login -> login
 						.loginPage("http://localhost:3000/login")
 						.defaultSuccessUrl("http://localhost:3000/paginaprincipal")
 						.failureUrl("http://localhost:3000/login?error=true")
-						.permitAll()
-						)
-					.sessionManagement(sessionManager -> sessionManager
-							.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
-					.authenticationProvider(authProvider)
-					.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-					.build();
+						.permitAll())
+				.sessionManagement(sessionManager -> sessionManager
+						.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
+				.authenticationProvider(authProvider)
+				.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+				.build();
 	}
-	
 
 	@Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173", "http://localhost:3000/", "https://unidadarchivocentral.onrender.com/"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("*"));
-        configuration.setExposedHeaders(Arrays.asList("Authorization"));
-        configuration.setAllowCredentials(true);
+	CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration configuration = new CorsConfiguration();
+		configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173", "http://localhost:3000/",
+				"https://unidadarchivocentral.onrender.com/"));
+		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+		configuration.setAllowedHeaders(Arrays.asList("*"));
+		configuration.setExposedHeaders(Arrays.asList("Authorization"));
+		configuration.setAllowCredentials(true);
 
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
+		return source;
+	}
 }

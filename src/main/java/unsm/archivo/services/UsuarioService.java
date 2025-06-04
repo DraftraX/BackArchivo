@@ -18,122 +18,115 @@ import unsm.archivo.repository.UsuarioRepo;
 import unsm.archivo.request.UsuarioRequest;
 
 @Service
-public class UsuarioService 
-{
+public class UsuarioService {
 	@Autowired
 	UsuarioRepo repousuario;
-	
+
 	@Autowired
 	CargoRepo repocargo;
-	
+
 	@Autowired
-    private PasswordEncoder passwordEncoder;
-	
-	public void nuevousuario (UsuarioRequest usuario) throws IOException 
-	{
+	private PasswordEncoder passwordEncoder;
+
+	public void nuevousuario(UsuarioRequest usuario) throws IOException {
 		String encoded = passwordEncoder.encode(usuario.getPassword());
-		
+
 		Usuario nuevousuario = new Usuario();
-		
+
 		nuevousuario.setName(usuario.getName());
 		nuevousuario.setLastname(usuario.getLastname());
 		nuevousuario.setAddress(usuario.getAddress());
 		nuevousuario.setDni(usuario.getDni());
-	    nuevousuario.setPhone(usuario.getPhone());
+		nuevousuario.setPhone(usuario.getPhone());
 		nuevousuario.setPassword(encoded);
 		nuevousuario.setUsername(usuario.getUsername());
 		nuevousuario.setEstado("Activo");
-		
+
 		Set<Cargo> Cargos = new HashSet<>();
-		
+
 		Cargo Cargo = repocargo.findById(usuario.getCargoid())
-                .orElseThrow(() -> new RuntimeException("Cargo no encontrado"));
-		
+				.orElseThrow(() -> new RuntimeException("Cargo no encontrado"));
+
 		Cargos.add(Cargo);
-		
+
 		nuevousuario.setCargos(Cargos);
-		
+
 		repousuario.save(nuevousuario);
 	}
-	
-	public List<UsuarioDTO> verusuarios () 
-	{
-		List <Usuario> Usuarios = repousuario.findAll();
-		
-		List <UsuarioDTO> usuariosdto = new ArrayList<>();
-		
-		for (Usuario user : Usuarios) 
-		{
+
+	public List<UsuarioDTO> verusuarios() {
+		List<Usuario> Usuarios = repousuario.findAll();
+
+		List<UsuarioDTO> usuariosdto = new ArrayList<>();
+
+		for (Usuario user : Usuarios) {
 			String cargoName = "";
-		    if (user.getCargos() != null && !user.getCargos().isEmpty()) {
-		        Cargo Cargo = user.getCargos().iterator().next();
-		        cargoName = Cargo.getName();
-		    }
-		    
-		    UsuarioDTO dto = new UsuarioDTO(
-		    								user.getId(),
-		    								user.getName(),
-		    								user.getLastname(), 
-		    								user.getAddress(),
-		    								user.getPhone(),
-		    								cargoName);
-		    usuariosdto.add(dto);
+			if (user.getCargos() != null && !user.getCargos().isEmpty()) {
+				Cargo Cargo = user.getCargos().iterator().next();
+				cargoName = Cargo.getName();
+			}
+
+			UsuarioDTO dto = new UsuarioDTO(
+					user.getId(),
+					user.getName(),
+					user.getLastname(),
+					user.getAddress(),
+					user.getPhone(),
+					cargoName);
+			usuariosdto.add(dto);
 		}
-		
+
 		return usuariosdto;
 	}
-	
-	public UsuarioDTO verusuario (Integer id) 
-	{
+
+	public UsuarioDTO verusuario(Integer id) {
 		Usuario user = repousuario.findById(id).orElseThrow(() -> new RuntimeException("Cargo no encontrado"));
-		
+
 		String cargoName = "";
-	    if (user.getCargos() != null && !user.getCargos().isEmpty()) {
-	        Cargo Cargo = user.getCargos().iterator().next();
-	        cargoName = Cargo.getName();
-	    }
-	    
-	    UsuarioDTO dto = new UsuarioDTO(
-							    		user.getId(),
-										user.getName(),
-										user.getLastname(), 
-										user.getAddress(),
-										user.getPhone(),
-										cargoName);
+		if (user.getCargos() != null && !user.getCargos().isEmpty()) {
+			Cargo Cargo = user.getCargos().iterator().next();
+			cargoName = Cargo.getName();
+		}
+
+		UsuarioDTO dto = new UsuarioDTO(
+				user.getId(),
+				user.getName(),
+				user.getLastname(),
+				user.getAddress(),
+				user.getPhone(),
+				cargoName);
 		return dto;
 	}
-	
-	public UsuarioDTO findByUsername (String username) 
-	{
+
+	public UsuarioDTO findByUsername(String username) {
 		Usuario user = repousuario.findByUsername(username)
 				.orElseThrow(() -> new RuntimeException("No se encontro al usuario"));
-		
+
 		String cargoName = "";
-	    if (user.getCargos() != null && !user.getCargos().isEmpty()) {
-	        Cargo Cargo = user.getCargos().iterator().next();
-	        cargoName = Cargo.getName();
-	    }
-	    
-	    UsuarioDTO dto = new UsuarioDTO(
-							    		user.getId(),
-										user.getName(),
-										user.getLastname(), 
-										user.getAddress(),
-										user.getPhone(),
-										cargoName);
+		if (user.getCargos() != null && !user.getCargos().isEmpty()) {
+			Cargo Cargo = user.getCargos().iterator().next();
+			cargoName = Cargo.getName();
+		}
+
+		UsuarioDTO dto = new UsuarioDTO(
+				user.getId(),
+				user.getName(),
+				user.getLastname(),
+				user.getAddress(),
+				user.getPhone(),
+				cargoName);
 		return dto;
 	}
-	
-	public boolean cambiarContrasena(String username, String newPassword)
-	{
+
+	public boolean cambiarContrasena(String username, String newPassword) {
 		Usuario user = repousuario.findByUsername(username)
-				.orElseThrow(()->new RuntimeException("No se encontro al usuario"));
-        if (user != null) {
-            user.setPassword(passwordEncoder.encode(newPassword));
-            repousuario.save(user);
-            return true;
-        }
-        
-        return false;
-    }
+				.orElseThrow(() -> new RuntimeException("No se encontro al usuario"));
+		if (user != null) {
+			user.setPassword(passwordEncoder.encode(newPassword));
+			repousuario.save(user);
+			return true;
+		}
+
+		return false;
+	}
 }
