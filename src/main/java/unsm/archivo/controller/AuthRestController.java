@@ -69,7 +69,9 @@ public class AuthRestController {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
             conn.setDoOutput(true);
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             conn.getOutputStream().write(postData);
+            System.out.println("Token recibido para verificación: " + recaptchaToken);
 
             BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String inputLine;
