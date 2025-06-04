@@ -34,16 +34,21 @@ public class WebSecurityConfig {
 				.csrf(csrf -> csrf.disable())
 				.cors(cors -> cors.configurationSource(corsConfigurationSource()))
 				.authorizeHttpRequests(authRequest -> {
+					// Permitir solicitudes OPTIONS (preflight)
+					authRequest.requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll();
+
 					authRequest.requestMatchers(
 							"/auth/**",
 							"/change-password/**",
 							"/usuario/nuevousuario").permitAll();
+
 					authRequest.requestMatchers(
 							"/resolucion/**",
 							"/gradotitulos/**",
 							"/usuario/**",
 							"/visita/**")
 							.hasAnyAuthority("ADMINISTRADOR", "JEFE ARCHIVO", "SECRETARIA", "USUARIO");
+
 					authRequest.anyRequest().authenticated();
 				})
 				.formLogin(login -> login
@@ -66,7 +71,7 @@ public class WebSecurityConfig {
 		configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "X-Requested-With"));
 		configuration.setExposedHeaders(Arrays.asList("Authorization"));
 		configuration.setAllowCredentials(true);
-		configuration.setMaxAge(3600L); // 1 hora de caché para preflight
+		configuration.setMaxAge(3600L);
 
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration);
