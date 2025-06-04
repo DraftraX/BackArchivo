@@ -16,7 +16,7 @@ public class WebConfig {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
                         .allowedOrigins("http://localhost:5173", "http://localhost:3000",
-                                "https://unidadarchivocentral.onrender.com")
+                                "https://unidadarchivocentral.onrender.com", "https://archivo-frontend.onrender.com")
                         .allowedMethods("*")
                         .allowedHeaders("*")
                         .exposedHeaders("Authorization")
