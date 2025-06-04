@@ -13,7 +13,8 @@ services:
       - archivo-network
     depends_on:
       - mysql
-    entrypoint: ["sh", "-c", "while ! nc -z mysql 3306; do sleep 1; done; java -jar /root/target/archivo-0.0.1-SNAPSHOT.jar"]
+    ENTRYPOINT ["java", "-jar", "/root/target/archivo-0.0.1-SNAPSHOT.jar"]
+
 
   mysql:
     image: mysql
