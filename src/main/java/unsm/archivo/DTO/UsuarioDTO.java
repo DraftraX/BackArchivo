@@ -6,7 +6,7 @@ public class UsuarioDTO {
     String lastname;
     String address;
     String phone;
-    String cargoid;
+    Integer cargoid; // CAMBIO AQUÍ
 
     public Integer getId() {
         return id;
@@ -48,15 +48,15 @@ public class UsuarioDTO {
         this.phone = phone;
     }
 
-    public String getCargoid() {
+    public Integer getCargoid() {
         return cargoid;
     }
 
-    public void setCargoid(String cargoid) {
+    public void setCargoid(Integer cargoid) {
         this.cargoid = cargoid;
     }
 
-    public UsuarioDTO(Integer id, String name, String lastname, String address, String phone, String cargoid) {
+    public UsuarioDTO(Integer id, String name, String lastname, String address, String phone, Integer cargoid) {
         super();
         this.id = id;
         this.name = name;
