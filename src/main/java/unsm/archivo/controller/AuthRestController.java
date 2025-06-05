@@ -29,7 +29,8 @@ public class AuthRestController {
     private final AuthService authService;
     private final UsuarioRepo usuarioRepository;
 
-    private static final String SECRET_KEY = "6LdpRVUrAAAAAMXUbqkpGhxIchH5GeKh4EU8tX_f";
+    // Esta es la SECRET_KEY para reCAPTCHA v2 (solo el servidor la conoce)
+    private static final String SECRET_KEY = "6LdpRVUrAAAAABrYHMs4u1x8YxF3m8kf2h4gUDpc";
 
     public AuthRestController(AuthService authService, UsuarioRepo usuarioRepo) {
         super();
@@ -71,27 +72,22 @@ public class AuthRestController {
             conn.setDoOutput(true);
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             conn.getOutputStream().write(postData);
+
             System.out.println("Token recibido para verificación: " + recaptchaToken);
 
             BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            String inputLine;
             StringBuilder response = new StringBuilder();
-
+            String inputLine;
             while ((inputLine = in.readLine()) != null) {
                 response.append(inputLine);
             }
             in.close();
 
-            // Parsear la respuesta JSON
             ObjectMapper mapper = new ObjectMapper();
             JsonNode rootNode = mapper.readTree(response.toString());
-
             System.out.println("Respuesta reCAPTCHA: " + rootNode.toPrettyString());
 
-            // Obtener el valor del campo "success"
-            boolean success = rootNode.path("success").asBoolean();
-
-            return success;
+            return rootNode.path("success").asBoolean();
         } catch (Exception e) {
             e.printStackTrace();
             return false;

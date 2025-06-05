@@ -37,16 +37,8 @@ public class WebSecurityConfig {
 				.cors(cors -> cors.configurationSource(corsConfigurationSource()))
 				.authorizeHttpRequests(authRequest -> authRequest
 						.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // Preflight CORS
-						.requestMatchers(
-								"/auth/**",
-								"/change-password/**",
-								"/usuario/nuevousuario")
-						.permitAll()
-						.requestMatchers(
-								"/resolucion/**",
-								"/gradotitulos/**",
-								"/usuario/**",
-								"/visita/**")
+						.requestMatchers("/auth/**", "/change-password/**", "/usuario/nuevousuario").permitAll()
+						.requestMatchers("/resolucion/**", "/gradotitulos/**", "/usuario/**", "/visita/**")
 						.hasAnyAuthority("ADMINISTRADOR", "JEFE ARCHIVO", "SECRETARIA", "USUARIO")
 						.anyRequest().authenticated())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
@@ -60,15 +52,31 @@ public class WebSecurityConfig {
 	CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
 
+		// Origen permitido (frontend en Render)
 		configuration.setAllowedOrigins(Collections.singletonList("https://archivo-frontend.onrender.com"));
+
+		// Métodos HTTP permitidos
 		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-		configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "X-Requested-With"));
+
+		// Headers que puede recibir el backend desde el cliente
+		// Incluye TODOS los que usarás (¨Content-Type¨ y cualquier otro header
+		// personalizado)
+		configuration.setAllowedHeaders(Arrays.asList(
+				"Authorization",
+				"Content-Type",
+				"X-Requested-With"));
+
+		// Headers que el navegador puede exponer al frontend
 		configuration.setExposedHeaders(Collections.singletonList("Authorization"));
+
+		// Permitir enviar credenciales (cookies, auth headers, etc.)
 		configuration.setAllowCredentials(true);
+
+		// Cuánto tiempo cachear el resultado del preflight
 		configuration.setMaxAge(3600L);
 
-		// Registrar configuración para todos los endpoints
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		// Aplica esta política de CORS a todos los endpoints
 		source.registerCorsConfiguration("/**", configuration);
 
 		return source;
