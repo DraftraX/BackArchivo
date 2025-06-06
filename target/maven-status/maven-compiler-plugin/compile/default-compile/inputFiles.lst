@@ -1,42 +1,52 @@
-C:\Users\JhosepSF\Downloads\Archivo\src\main\java\unsm\archivo\controller\ResolucionController.java
-C:\Users\JhosepSF\Downloads\Archivo\src\main\java\unsm\archivo\controller\AuthRestController.java
-C:\Users\JhosepSF\Downloads\Archivo\src\main\java\unsm\archivo\config\WebConfig.java
-C:\Users\JhosepSF\Downloads\Archivo\src\main\java\unsm\archivo\services\GradoTituloService.java
-C:\Users\JhosepSF\Downloads\Archivo\src\main\java\unsm\archivo\repository\CargoRepo.java
-C:\Users\JhosepSF\Downloads\Archivo\src\main\java\unsm\archivo\services\EmailService.java
-C:\Users\JhosepSF\Downloads\Archivo\src\main\java\unsm\archivo\controller\CargoController.java
-C:\Users\JhosepSF\Downloads\Archivo\src\main\java\unsm\archivo\entitys\Cargo.java
-C:\Users\JhosepSF\Downloads\Archivo\src\main\java\unsm\archivo\services\JwtService.java
-C:\Users\JhosepSF\Downloads\Archivo\src\main\java\unsm\archivo\DTO\GradoTituloDTO.java
-C:\Users\JhosepSF\Downloads\Archivo\src\main\java\unsm\archivo\controller\GradoTituloController.java
-C:\Users\JhosepSF\Downloads\Archivo\src\main\java\unsm\archivo\request\CargoRequest.java
-C:\Users\JhosepSF\Downloads\Archivo\src\main\java\unsm\archivo\repository\GradoTituloRepo.java
-C:\Users\JhosepSF\Downloads\Archivo\src\main\java\unsm\archivo\repository\UsuarioRepo.java
-C:\Users\JhosepSF\Downloads\Archivo\src\main\java\unsm\archivo\entitys\Resolucion.java
-C:\Users\JhosepSF\Downloads\Archivo\src\main\java\unsm\archivo\controller\RestablecerController.java
-C:\Users\JhosepSF\Downloads\Archivo\src\main\java\unsm\archivo\request\AuthResponse.java
-C:\Users\JhosepSF\Downloads\Archivo\src\main\java\unsm\archivo\entitys\Tipocriterio.java
-C:\Users\JhosepSF\Downloads\Archivo\src\main\java\unsm\archivo\services\TipocriterioService.java
-C:\Users\JhosepSF\Downloads\Archivo\src\main\java\unsm\archivo\controller\UsuariosController.java
-C:\Users\JhosepSF\Downloads\Archivo\src\main\java\unsm\archivo\services\UsuarioService.java
-C:\Users\JhosepSF\Downloads\Archivo\src\main\java\unsm\archivo\entitys\Usuario.java
-C:\Users\JhosepSF\Downloads\Archivo\src\main\java\unsm\archivo\services\ResolucionService.java
-C:\Users\JhosepSF\Downloads\Archivo\src\main\java\unsm\archivo\request\UsuarioRequest.java
-C:\Users\JhosepSF\Downloads\Archivo\src\main\java\unsm\archivo\repository\TipocriterioRepo.java
-C:\Users\JhosepSF\Downloads\Archivo\src\main\java\unsm\archivo\repository\ResolucionRepo.java
-C:\Users\JhosepSF\Downloads\Archivo\src\main\java\unsm\archivo\DTO\ResolucionDTO.java
-C:\Users\JhosepSF\Downloads\Archivo\src\main\java\unsm\archivo\controller\TipocriterioController.java
-C:\Users\JhosepSF\Downloads\Archivo\src\main\java\unsm\archivo\config\AppConfig.java
-C:\Users\JhosepSF\Downloads\Archivo\src\main\java\unsm\archivo\request\TipocriterioRequest.java
-C:\Users\JhosepSF\Downloads\Archivo\src\main\java\unsm\archivo\request\ResolucionRequest.java
-C:\Users\JhosepSF\Downloads\Archivo\src\main\java\unsm\archivo\DTO\UsuarioDTO.java
-C:\Users\JhosepSF\Downloads\Archivo\src\main\java\unsm\archivo\services\AuthService.java
-C:\Users\JhosepSF\Downloads\Archivo\src\main\java\unsm\archivo\request\LoginRequest.java
-C:\Users\JhosepSF\Downloads\Archivo\src\main\java\unsm\archivo\config\DataInitializer.java
-C:\Users\JhosepSF\Downloads\Archivo\src\main\java\unsm\archivo\jwt\JwtAuthenticationFilter.java
-C:\Users\JhosepSF\Downloads\Archivo\src\main\java\unsm\archivo\request\GradoTituloRequest.java
-C:\Users\JhosepSF\Downloads\Archivo\src\main\java\unsm\archivo\entitys\GradoTitulo.java
-C:\Users\JhosepSF\Downloads\Archivo\src\main\java\unsm\archivo\services\CargoService.java
-C:\Users\JhosepSF\Downloads\Archivo\src\main\java\unsm\archivo\request\EmailRequest.java
-C:\Users\JhosepSF\Downloads\Archivo\src\main\java\unsm\archivo\config\WebSecurityConfig.java
-C:\Users\JhosepSF\Downloads\Archivo\src\main\java\unsm\archivo\ArchivoApplication.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\config\DataInitializer.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\DTO\PosgradoDTO.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\request\CargoRequest.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\request\TipocriterioRequest.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\config\WebConfig.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\DTO\ResolucionDTO.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\controller\PregradoController.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\repository\CargoRepo.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\entitys\Cargo.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\request\LoginRequest.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\controller\AuthRestController.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\services\EncryptionService.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\services\PregradoService.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\request\PosgradoRequest.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\services\CargoService.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\controller\CargoController.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\config\AppConfig.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\services\UsuarioService.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\entitys\Visitante.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\entitys\Posgrado.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\request\AuthResponse.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\jwt\JwtAuthenticationFilter.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\repository\VisitaRepo.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\services\JwtService.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\request\GradoTituloRequest.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\repository\ResolucionRepo.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\entitys\GradoTitulo.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\services\VisitaService.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\controller\VerificacionController.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\request\ResolucionRequest.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\entitys\Resolucion.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\controller\UsuariosController.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\controller\VisitaRestController.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\repository\GradoTituloRepo.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\request\UsuarioRequest.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\config\AuthExceptionHandler.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\controller\PosgradoController.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\services\EmailService.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\repository\PosgradoRepo.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\DTO\GradoTituloDTO.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\repository\UsuarioRepo.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\request\EmailRequest.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\config\WebSecurityConfig.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\controller\ResolucionController.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\request\VisitaRequest.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\services\AuthService.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\ArchivoApplication.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\services\PosgradoService.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\controller\RestablecerController.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\services\ResolucionService.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\DTO\UsuarioDTO.java
+C:\Users\polvi\OneDrive\Escritorio\Pagina Seguridad\BackArchivo\src\main\java\unsm\archivo\entitys\Usuario.java

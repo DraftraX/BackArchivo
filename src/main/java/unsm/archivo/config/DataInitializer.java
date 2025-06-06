@@ -54,106 +54,106 @@
 // }
 
 // MAS ROLES Y USUARIOS
-// package unsm.archivo.config;
+package unsm.archivo.config;
 
-// import java.util.HashSet;
-// import java.util.Set;
+import java.util.HashSet;
+import java.util.Set;
 
-// import org.springframework.boot.CommandLineRunner;
-// import org.springframework.context.annotation.Bean;
-// import org.springframework.context.annotation.Configuration;
-// import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-// import unsm.archivo.entitys.Cargo;
-// import unsm.archivo.entitys.Usuario;
-// import unsm.archivo.repository.CargoRepo;
-// import unsm.archivo.repository.UsuarioRepo;
+import unsm.archivo.entitys.Cargo;
+import unsm.archivo.entitys.Usuario;
+import unsm.archivo.repository.CargoRepo;
+import unsm.archivo.repository.UsuarioRepo;
 
-// @Configuration
-// public class DataInitializer {
+@Configuration
+public class DataInitializer {
 
-// @Bean
-// CommandLineRunner initializeData(UsuarioRepo usuarioRepository,
-// PasswordEncoder passwordEncoder,
-// CargoRepo cargoRepository) {
-// return args -> {
+    @Bean
+    CommandLineRunner initializeData(UsuarioRepo usuarioRepository,
+            PasswordEncoder passwordEncoder,
+            CargoRepo cargoRepository) {
+        return args -> {
 
-// // Crear cargos
-// Cargo administrador = new Cargo();
-// administrador.setName("ADMINISTRADOR");
-// cargoRepository.save(administrador);
+            // Crear cargos
+            Cargo administrador = new Cargo();
+            administrador.setName("ADMINISTRADOR");
+            cargoRepository.save(administrador);
 
-// Cargo jefeArchivo = new Cargo();
-// jefeArchivo.setName("JEFE ARCHIVO");
-// cargoRepository.save(jefeArchivo);
+            Cargo jefeArchivo = new Cargo();
+            jefeArchivo.setName("JEFE ARCHIVO");
+            cargoRepository.save(jefeArchivo);
 
-// Cargo secretaria = new Cargo();
-// secretaria.setName("SECRETARIA");
-// cargoRepository.save(secretaria);
+            Cargo secretaria = new Cargo();
+            secretaria.setName("SECRETARIA");
+            cargoRepository.save(secretaria);
 
-// Cargo usuarioCargo = new Cargo();
-// usuarioCargo.setName("USUARIO");
-// cargoRepository.save(usuarioCargo);
+            Cargo usuarioCargo = new Cargo();
+            usuarioCargo.setName("USUARIO");
+            cargoRepository.save(usuarioCargo);
 
-// // Crear usuario ADMINISTRADOR
-// Usuario usuarioAdmin = new Usuario();
-// Set<Cargo> cargosAdmin = new HashSet<>();
-// cargosAdmin.add(administrador); // directamente
-// usuarioAdmin.setUsername("eduysting@gmail.com");
-// usuarioAdmin.setEstado("Activo");
-// usuarioAdmin.setDni("12345678");
-// usuarioAdmin.setName("Eduardo Abel");
-// usuarioAdmin.setLastname("Padilla Coral");
-// usuarioAdmin.setAddress("Jirón José Carlos Mariategui n° 123");
-// usuarioAdmin.setPhone("123456789");
-// usuarioAdmin.setPassword(passwordEncoder.encode("123456"));
-// usuarioAdmin.setCargos(cargosAdmin);
-// usuarioRepository.save(usuarioAdmin);
+            // // Crear usuario ADMINISTRADOR
+            Usuario usuarioAdmin = new Usuario();
+            Set<Cargo> cargosAdmin = new HashSet<>();
+            cargosAdmin.add(administrador); // directamente
+            usuarioAdmin.setUsername("eduysting@gmail.com");
+            usuarioAdmin.setEstado("Activo");
+            usuarioAdmin.setDni("12345678");
+            usuarioAdmin.setName("Eduardo Abel");
+            usuarioAdmin.setLastname("Padilla Coral");
+            usuarioAdmin.setAddress("Jirón José Carlos Mariategui n° 123");
+            usuarioAdmin.setPhone("123456789");
+            usuarioAdmin.setPassword(passwordEncoder.encode("123456"));
+            usuarioAdmin.setCargos(cargosAdmin);
+            usuarioRepository.save(usuarioAdmin);
 
-// // Crear usuario JEFE ARCHIVO
-// Usuario usuarioJefeArchivo = new Usuario();
-// Set<Cargo> cargosJefe = new HashSet<>();
-// cargosJefe.add(jefeArchivo);
-// usuarioJefeArchivo.setUsername("wmanuelga@gmail.com");
-// usuarioJefeArchivo.setEstado("Activo");
-// usuarioJefeArchivo.setDni("72809055");
-// usuarioJefeArchivo.setName("Wilmar Manuel");
-// usuarioJefeArchivo.setLastname("Gomez Avalos");
-// usuarioJefeArchivo.setAddress("Jr. 1 de Mayor 610 Morales");
-// usuarioJefeArchivo.setPhone("941579343");
-// usuarioJefeArchivo.setPassword(passwordEncoder.encode("123456"));
-// usuarioJefeArchivo.setCargos(cargosJefe);
-// usuarioRepository.save(usuarioJefeArchivo);
+            // Crear usuario JEFE ARCHIVO
+            Usuario usuarioJefeArchivo = new Usuario();
+            Set<Cargo> cargosJefe = new HashSet<>();
+            cargosJefe.add(jefeArchivo);
+            usuarioJefeArchivo.setUsername("wmanuelga@gmail.com");
+            usuarioJefeArchivo.setEstado("Activo");
+            usuarioJefeArchivo.setDni("72809055");
+            usuarioJefeArchivo.setName("Wilmar Manuel");
+            usuarioJefeArchivo.setLastname("Gomez Avalos");
+            usuarioJefeArchivo.setAddress("Jr. 1 de Mayor 610 Morales");
+            usuarioJefeArchivo.setPhone("941579343");
+            usuarioJefeArchivo.setPassword(passwordEncoder.encode("123456"));
+            usuarioJefeArchivo.setCargos(cargosJefe);
+            usuarioRepository.save(usuarioJefeArchivo);
 
-// // Crear usuario SECRETARIA
-// Usuario usuarioSecretaria = new Usuario();
-// Set<Cargo> cargosSecretaria = new HashSet<>();
-// cargosSecretaria.add(secretaria);
-// usuarioSecretaria.setUsername("samir@gmail.com");
-// usuarioSecretaria.setEstado("Activo");
-// usuarioSecretaria.setDni("12345678");
-// usuarioSecretaria.setName("Paul Samir");
-// usuarioSecretaria.setLastname("Vidaurre Gonzales");
-// usuarioSecretaria.setAddress("WIKUGOXDXDXD");
-// usuarioSecretaria.setPhone("123456789");
-// usuarioSecretaria.setPassword(passwordEncoder.encode("123456"));
-// usuarioSecretaria.setCargos(cargosSecretaria);
-// usuarioRepository.save(usuarioSecretaria);
+            // Crear usuario SECRETARIA
+            Usuario usuarioSecretaria = new Usuario();
+            Set<Cargo> cargosSecretaria = new HashSet<>();
+            cargosSecretaria.add(secretaria);
+            usuarioSecretaria.setUsername("samir@gmail.com");
+            usuarioSecretaria.setEstado("Activo");
+            usuarioSecretaria.setDni("12345678");
+            usuarioSecretaria.setName("Paul Samir");
+            usuarioSecretaria.setLastname("Vidaurre Gonzales");
+            usuarioSecretaria.setAddress("WIKUGOXDXDXD");
+            usuarioSecretaria.setPhone("123456789");
+            usuarioSecretaria.setPassword(passwordEncoder.encode("123456"));
+            usuarioSecretaria.setCargos(cargosSecretaria);
+            usuarioRepository.save(usuarioSecretaria);
 
-// // Crear usuario USUARIO
-// Usuario usuarioComun = new Usuario();
-// Set<Cargo> cargosUsuarioComun = new HashSet<>();
-// cargosUsuarioComun.add(usuarioCargo);
-// usuarioComun.setUsername("ismael@gmail.com");
-// usuarioComun.setEstado("Activo");
-// usuarioComun.setDni("12345678");
-// usuarioComun.setName("Ismael Nehemias");
-// usuarioComun.setLastname("Haro Carrasco");
-// usuarioComun.setAddress("POLVORAXD");
-// usuarioComun.setPhone("111111111");
-// usuarioComun.setPassword(passwordEncoder.encode("123456"));
-// usuarioComun.setCargos(cargosUsuarioComun);
-// usuarioRepository.save(usuarioComun);
-// };
-// }
-// }
+            // Crear usuario USUARIO
+            Usuario usuarioComun = new Usuario();
+            Set<Cargo> cargosUsuarioComun = new HashSet<>();
+            cargosUsuarioComun.add(usuarioCargo);
+            usuarioComun.setUsername("ismael@gmail.com");
+            usuarioComun.setEstado("Activo");
+            usuarioComun.setDni("12345678");
+            usuarioComun.setName("Ismael Nehemias");
+            usuarioComun.setLastname("Haro Carrasco");
+            usuarioComun.setAddress("POLVORAXD");
+            usuarioComun.setPhone("111111111");
+            usuarioComun.setPassword(passwordEncoder.encode("123456"));
+            usuarioComun.setCargos(cargosUsuarioComun);
+            usuarioRepository.save(usuarioComun);
+        };
+    }
+}

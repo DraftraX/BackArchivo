@@ -6,7 +6,7 @@ public class UsuarioDTO {
     String lastname;
     String address;
     String phone;
-    Integer cargoid; // CAMBIO AQUÍ
+    Integer cargoid;
 
     public Integer getId() {
         return id;
