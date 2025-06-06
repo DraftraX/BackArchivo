@@ -37,7 +37,8 @@ public class WebSecurityConfig {
 					authRequest.requestMatchers(
 							"/auth/**",
 							"/change-password/**",
-							"/usuario/nuevousuario").permitAll();
+							"/usuario/nuevousuario",
+							"/verificacion/**").permitAll();
 					authRequest.requestMatchers("/resolucion/**", "/gradotitulos/**", "/usuario/**", "/visita/**")
 							.hasAnyAuthority("ADMINISTRADOR", "JEFE ARCHIVO", "SECRETARIA", "USUARIO");
 					authRequest.anyRequest().authenticated();

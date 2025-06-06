@@ -43,4 +43,26 @@ public class EmailService {
 			e.printStackTrace();
 		}
 	}
+		public boolean sendVerificationCode(String email, String code) {
+		MimeMessage message = javaMailSender.createMimeMessage();
+		try {
+			MimeMessageHelper helper = new MimeMessageHelper(message, true);
+			Context context = new Context();
+			Map<String, Object> model = new HashMap<>();
+			model.put("code", code);
+			context.setVariables(model);
+			String htmlText = templateEngine.process("verification-email", context);
+			
+			helper.setFrom("eduysting@gmail.com");
+			helper.setTo(email);
+			helper.setSubject("Código de Verificación - Archivo UNSM");
+			helper.setText(htmlText, true);
+			
+			javaMailSender.send(message);
+			return true;
+		} catch (MessagingException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 }
