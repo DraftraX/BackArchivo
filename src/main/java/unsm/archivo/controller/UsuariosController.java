@@ -17,8 +17,6 @@ import unsm.archivo.DTO.UsuarioDTO;
 import unsm.archivo.request.UsuarioRequest;
 import unsm.archivo.services.UsuarioService;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import java.util.Map;
 
 @RestController

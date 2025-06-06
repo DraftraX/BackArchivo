@@ -21,34 +21,42 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-	
+
 	private final JwtService jwtService;
+	private final UserDetailsService userDetailsService;
+
 	public JwtAuthenticationFilter(JwtService jwtService, UserDetailsService userDetailsService) {
-		super();
 		this.jwtService = jwtService;
 		this.userDetailsService = userDetailsService;
 	}
 
-	private final UserDetailsService userDetailsService;
-	
-	@SuppressWarnings("null")
+	@Override
+	protected boolean shouldNotFilter(HttpServletRequest request) {
+		String path = request.getRequestURI();
+
+		return path.startsWith("/auth")
+				|| path.startsWith("/verificacion")
+				|| path.startsWith("/change-password")
+				|| path.startsWith("/usuario/nuevousuario");
+	}
+
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		
+
 		final String token = getTokenFromRequest(request);
 		final String username;
-		
-		if(token==null) {
+
+		if (token == null) {
 			filterChain.doFilter(request, response);
 			return;
 		}
+
 		username = jwtService.getUsernameFromToken(token);
-		
-		if(username!=null && SecurityContextHolder.getContext().getAuthentication()==null) {
+
+		if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 			UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-			if(jwtService.isTokenValid(token, userDetails)) {
-				
+			if (jwtService.isTokenValid(token, userDetails)) {
 				UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
 						username, null, userDetails.getAuthorities());
 				authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
@@ -57,12 +65,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		}
 		filterChain.doFilter(request, response);
 	}
-	
+
 	private String getTokenFromRequest(HttpServletRequest request) {
-		
-		final String authHeader=request.getHeader(HttpHeaders.AUTHORIZATION);
-		
-		if(StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer ")) {
+		final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+		if (StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer ")) {
 			return authHeader.substring(7);
 		}
 		return null;
