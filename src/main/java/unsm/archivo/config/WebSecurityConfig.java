@@ -37,7 +37,8 @@ public class WebSecurityConfig {
 				.cors(cors -> cors.configurationSource(corsConfigurationSource()))
 				.authorizeHttpRequests(authRequest -> authRequest
 						.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // Preflight CORS
-						.requestMatchers("/auth/**", "/change-password/**", "/usuario/nuevousuario", "/verificacion/**")
+						.requestMatchers("/auth/**", "/change-password/**", "/usuario/nuevousuario",
+								"/verificacion/enviar-codigo")
 						.permitAll()
 						.requestMatchers("/resolucion/**", "/gradotitulos/**", "/usuario/**", "/visita/**")
 						.hasAnyAuthority("ADMINISTRADOR", "JEFE ARCHIVO", "SECRETARIA", "USUARIO")
